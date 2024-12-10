@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="d2Estoque" targetNamespace="http://tempuri.org/d2Estoque.xsd" xmlns:mstns="http://tempuri.org/d2Estoque.xsd" xmlns="http://tempuri.org/d2Estoque.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="bdEstoque" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="bdEstoque (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.d2.Properties.Settings.GlobalReference.Default.bdEstoque" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tb_EstoqueTableAdapter" GeneratorDataComponentClassName="tb_EstoqueTableAdapter" Name="tb_Estoque" UserDataComponentName="tb_EstoqueTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="bdEstoque (Settings)" DbObjectName="d2.dbo.tb_Estoque" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id, loja, quantidade, situacao, nomecliente, valor FROM dbo.tb_Estoque</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id" DataSetColumn="id" />
+              <Mapping SourceColumn="loja" DataSetColumn="loja" />
+              <Mapping SourceColumn="quantidade" DataSetColumn="quantidade" />
+              <Mapping SourceColumn="situacao" DataSetColumn="situacao" />
+              <Mapping SourceColumn="nomecliente" DataSetColumn="nomecliente" />
+              <Mapping SourceColumn="valor" DataSetColumn="valor" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="d2Estoque" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="d2Estoque" msprop:Generator_DataSetName="d2Estoque">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tb_Estoque" msprop:Generator_RowEvHandlerName="tb_EstoqueRowChangeEventHandler" msprop:Generator_RowDeletedName="tb_EstoqueRowDeleted" msprop:Generator_RowDeletingName="tb_EstoqueRowDeleting" msprop:Generator_RowEvArgName="tb_EstoqueRowChangeEvent" msprop:Generator_TablePropName="tb_Estoque" msprop:Generator_RowChangedName="tb_EstoqueRowChanged" msprop:Generator_RowChangingName="tb_EstoqueRowChanging" msprop:Generator_TableClassName="tb_EstoqueDataTable" msprop:Generator_RowClassName="tb_EstoqueRow" msprop:Generator_TableVarName="tabletb_Estoque" msprop:Generator_UserTableName="tb_Estoque">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="loja" msprop:Generator_ColumnPropNameInRow="loja" msprop:Generator_ColumnPropNameInTable="lojaColumn" msprop:Generator_ColumnVarNameInTable="columnloja" msprop:Generator_UserColumnName="loja">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="quantidade" msprop:Generator_ColumnPropNameInRow="quantidade" msprop:Generator_ColumnPropNameInTable="quantidadeColumn" msprop:Generator_ColumnVarNameInTable="columnquantidade" msprop:Generator_UserColumnName="quantidade" type="xs:int" />
+              <xs:element name="situacao" msprop:Generator_ColumnPropNameInRow="situacao" msprop:Generator_ColumnPropNameInTable="situacaoColumn" msprop:Generator_ColumnVarNameInTable="columnsituacao" msprop:Generator_UserColumnName="situacao">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nomecliente" msprop:Generator_ColumnPropNameInRow="nomecliente" msprop:Generator_ColumnPropNameInTable="nomeclienteColumn" msprop:Generator_ColumnVarNameInTable="columnnomecliente" msprop:Generator_UserColumnName="nomecliente">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="valor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_UserColumnName="valor" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

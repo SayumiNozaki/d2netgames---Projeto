@@ -50,18 +50,18 @@
             this.txtPesquisar = new System.Windows.Forms.TextBox();
             this.gpboxSitu = new System.Windows.Forms.GroupBox();
             this.lbRegistro = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.txtDregistro = new System.Windows.Forms.MaskedTextBox();
             this.pnID = new System.Windows.Forms.Panel();
             this.lbID = new System.Windows.Forms.Label();
-            this.txtID = new System.Windows.Forms.TextBox();
+            this.txtId = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
             this.pnCRUD = new System.Windows.Forms.Panel();
+            this.btnDel = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnAtt = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tb_UsuarioTableAdapter = new d2.d2UsuarioTableAdapters.tb_UsuarioTableAdapter();
-            this.button1 = new System.Windows.Forms.Button();
             this.gpboxUsuario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbUsuario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbUsuarioBindingSource)).BeginInit();
@@ -254,7 +254,6 @@
             this.lbPesquisar.Size = new System.Drawing.Size(99, 25);
             this.lbPesquisar.TabIndex = 3;
             this.lbPesquisar.Text = "Pesquisar";
-            this.lbPesquisar.Click += new System.EventHandler(this.lbPesquisar_Click);
             // 
             // txtPesquisar
             // 
@@ -262,12 +261,11 @@
             this.txtPesquisar.Name = "txtPesquisar";
             this.txtPesquisar.Size = new System.Drawing.Size(304, 30);
             this.txtPesquisar.TabIndex = 2;
-            this.txtPesquisar.TextChanged += new System.EventHandler(this.txtPesquisar_TextChanged);
             // 
             // gpboxSitu
             // 
             this.gpboxSitu.Controls.Add(this.lbRegistro);
-            this.gpboxSitu.Controls.Add(this.maskedTextBox1);
+            this.gpboxSitu.Controls.Add(this.txtDregistro);
             this.gpboxSitu.Location = new System.Drawing.Point(797, 161);
             this.gpboxSitu.Name = "gpboxSitu";
             this.gpboxSitu.Size = new System.Drawing.Size(227, 128);
@@ -284,20 +282,20 @@
             this.lbRegistro.TabIndex = 31;
             this.lbRegistro.Text = "Data de registro";
             // 
-            // maskedTextBox1
+            // txtDregistro
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(44, 70);
-            this.maskedTextBox1.Mask = "00/00/0000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.ReadOnly = true;
-            this.maskedTextBox1.Size = new System.Drawing.Size(142, 30);
-            this.maskedTextBox1.TabIndex = 30;
+            this.txtDregistro.Location = new System.Drawing.Point(6, 70);
+            this.txtDregistro.Mask = "00/00/0000 00:00:00";
+            this.txtDregistro.Name = "txtDregistro";
+            this.txtDregistro.ReadOnly = true;
+            this.txtDregistro.Size = new System.Drawing.Size(214, 30);
+            this.txtDregistro.TabIndex = 30;
             // 
             // pnID
             // 
             this.pnID.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pnID.Controls.Add(this.lbID);
-            this.pnID.Controls.Add(this.txtID);
+            this.pnID.Controls.Add(this.txtId);
             this.pnID.Controls.Add(this.btnSelect);
             this.pnID.Location = new System.Drawing.Point(797, 52);
             this.pnID.Name = "pnID";
@@ -313,12 +311,13 @@
             this.lbID.TabIndex = 12;
             this.lbID.Text = "ID";
             // 
-            // txtID
+            // txtId
             // 
-            this.txtID.Location = new System.Drawing.Point(21, 36);
-            this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(54, 30);
-            this.txtID.TabIndex = 12;
+            this.txtId.Location = new System.Drawing.Point(21, 36);
+            this.txtId.MaxLength = 10;
+            this.txtId.Name = "txtId";
+            this.txtId.Size = new System.Drawing.Size(54, 30);
+            this.txtId.TabIndex = 12;
             // 
             // btnSelect
             // 
@@ -329,11 +328,12 @@
             this.btnSelect.TabIndex = 12;
             this.btnSelect.Text = "Selecionar";
             this.btnSelect.UseVisualStyleBackColor = false;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // pnCRUD
             // 
             this.pnCRUD.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.pnCRUD.Controls.Add(this.button1);
+            this.pnCRUD.Controls.Add(this.btnDel);
             this.pnCRUD.Controls.Add(this.btnLimpar);
             this.pnCRUD.Controls.Add(this.btnAtt);
             this.pnCRUD.Controls.Add(this.btnAdd);
@@ -341,6 +341,17 @@
             this.pnCRUD.Name = "pnCRUD";
             this.pnCRUD.Size = new System.Drawing.Size(420, 132);
             this.pnCRUD.TabIndex = 21;
+            // 
+            // btnDel
+            // 
+            this.btnDel.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnDel.Location = new System.Drawing.Point(223, 14);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(164, 43);
+            this.btnDel.TabIndex = 31;
+            this.btnDel.Text = "Deletar";
+            this.btnDel.UseVisualStyleBackColor = false;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // btnLimpar
             // 
@@ -351,6 +362,7 @@
             this.btnLimpar.TabIndex = 15;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // btnAtt
             // 
@@ -361,6 +373,7 @@
             this.btnAtt.TabIndex = 14;
             this.btnAtt.Text = "Alterar";
             this.btnAtt.UseVisualStyleBackColor = false;
+            this.btnAtt.Click += new System.EventHandler(this.btnAtt_Click);
             // 
             // btnAdd
             // 
@@ -371,20 +384,11 @@
             this.btnAdd.TabIndex = 13;
             this.btnAdd.Text = "Adicionar";
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // tb_UsuarioTableAdapter
             // 
             this.tb_UsuarioTableAdapter.ClearBeforeFill = true;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.button1.Location = new System.Drawing.Point(223, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(164, 43);
-            this.button1.TabIndex = 31;
-            this.button1.Text = "Deletar";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // Usuario
             // 
@@ -426,7 +430,7 @@
         private System.Windows.Forms.GroupBox gpboxSitu;
         private System.Windows.Forms.Panel pnID;
         private System.Windows.Forms.Label lbID;
-        private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Panel pnCRUD;
         private System.Windows.Forms.Button btnAtt;
@@ -438,7 +442,7 @@
         private System.Windows.Forms.Label lbSenha;
         private System.Windows.Forms.Button btnVoltar;
         private System.Windows.Forms.Label lbRegistro;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox txtDregistro;
         private System.Windows.Forms.DataGridView tbUsuario;
         private d2Usuario d2Usuario;
         private System.Windows.Forms.BindingSource tbUsuarioBindingSource;
@@ -447,6 +451,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuarioDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dregistroDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnLimpar;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDel;
     }
 }

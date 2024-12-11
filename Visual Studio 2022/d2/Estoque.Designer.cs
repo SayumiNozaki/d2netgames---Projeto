@@ -194,7 +194,7 @@
             this.quantidadeDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.quantidadeDataGridViewTextBoxColumn.Name = "quantidadeDataGridViewTextBoxColumn";
             this.quantidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.quantidadeDataGridViewTextBoxColumn.Width = 125;
+            this.quantidadeDataGridViewTextBoxColumn.Width = 114;
             // 
             // situacaoDataGridViewTextBoxColumn
             // 
@@ -302,7 +302,7 @@
             // txtDretirada
             // 
             this.txtDretirada.Location = new System.Drawing.Point(26, 246);
-            this.txtDretirada.Mask = "00/00/0000 90:00";
+            this.txtDretirada.Mask = "00/00/0000 90:00:000";
             this.txtDretirada.Name = "txtDretirada";
             this.txtDretirada.ReadOnly = true;
             this.txtDretirada.Size = new System.Drawing.Size(161, 30);
@@ -331,6 +331,7 @@
             this.btnLimpar.TabIndex = 16;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // btnMsg
             // 
@@ -351,6 +352,7 @@
             this.btnDel.TabIndex = 10;
             this.btnDel.Text = "Deletar";
             this.btnDel.UseVisualStyleBackColor = false;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // btnAtt
             // 
@@ -361,6 +363,7 @@
             this.btnAtt.TabIndex = 10;
             this.btnAtt.Text = "Alterar";
             this.btnAtt.UseVisualStyleBackColor = false;
+            this.btnAtt.Click += new System.EventHandler(this.btnAtt_Click);
             // 
             // btnAdd
             // 
@@ -371,6 +374,7 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Adicionar";
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // gpboxSituacao
             // 
@@ -485,7 +489,6 @@
             this.label2.Size = new System.Drawing.Size(97, 25);
             this.label2.TabIndex = 4;
             this.label2.Text = "ID Cliente";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btnCliente
             // 
@@ -496,7 +499,7 @@
             this.btnCliente.TabIndex = 3;
             this.btnCliente.Text = "Buscar";
             this.btnCliente.UseVisualStyleBackColor = false;
-            this.btnCliente.Click += new System.EventHandler(this.button1_Click);
+            this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
             // 
             // txtIdCliente
             // 
@@ -505,12 +508,11 @@
             this.txtIdCliente.Name = "txtIdCliente";
             this.txtIdCliente.Size = new System.Drawing.Size(69, 30);
             this.txtIdCliente.TabIndex = 2;
-            this.txtIdCliente.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // txtDregistro
             // 
             this.txtDregistro.Location = new System.Drawing.Point(27, 351);
-            this.txtDregistro.Mask = "00/00/0000 90:00";
+            this.txtDregistro.Mask = "00/00/0000 90:00:000";
             this.txtDregistro.Name = "txtDregistro";
             this.txtDregistro.ReadOnly = true;
             this.txtDregistro.Size = new System.Drawing.Size(198, 30);
@@ -606,6 +608,7 @@
             this.checkRetirado.TabIndex = 1;
             this.checkRetirado.Text = "Retirado";
             this.checkRetirado.UseVisualStyleBackColor = true;
+            this.checkRetirado.CheckedChanged += new System.EventHandler(this.checkRetirado_CheckedChanged);
             // 
             // checkEstoque
             // 
@@ -616,6 +619,7 @@
             this.checkEstoque.TabIndex = 0;
             this.checkEstoque.Text = "Estoque";
             this.checkEstoque.UseVisualStyleBackColor = true;
+            this.checkEstoque.CheckedChanged += new System.EventHandler(this.checkEstoque_CheckedChanged);
             // 
             // lbPesquisar
             // 
@@ -635,6 +639,7 @@
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // txtPesquisar
             // 
@@ -729,12 +734,12 @@
         private System.Windows.Forms.BindingSource tbEstoqueBindingSource;
         private d2EstoqueTableAdapters.tb_EstoqueTableAdapter tb_EstoqueTableAdapter;
         private System.Windows.Forms.Button btnMsg;
+        private System.Windows.Forms.Button btnLimpar;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeclienteDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lojaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantidadeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn situacaoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button btnLimpar;
     }
 }

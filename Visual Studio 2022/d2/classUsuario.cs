@@ -20,7 +20,7 @@ namespace d2
                 {
                     conectar.Open();
                     var add = new SqlCommand("INSERT INTO tb_Usuario (usuario, senha, dregistro) " +
-                                             "VALUES (@usuario @senha, GETDATE)", conectar);
+                                             "VALUES (@usuario, @senha, GETDATE())", conectar);
 
                     add.Parameters.AddWithValue("@usuario", u.usuario);
                     add.Parameters.AddWithValue("@senha", u.senha);
@@ -63,7 +63,28 @@ namespace d2
                 MessageBox.Show("Erro: " + ex.Message);
             }
         }
+        public static void deleteusuario(int id)
+        {
+            try
+            {
+                string d2 = "Server=FEUERWOLF;Database=d2;Integrated Security=True;";
+                using (var conectar = new SqlConnection(d2))
+                {
+                    conectar.Open();
+                    var delete = new SqlCommand("DELETE FROM tb_Usuario WHERE id = @id", conectar);
 
+                    delete.Parameters.AddWithValue("@id", id);
+
+                    delete.ExecuteNonQuery();
+
+                    MessageBox.Show("Registro do usuário deletado com sucesso.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message);
+            }
+        }
         public static DataTable selectusuario(int ID)
         {
             DataTable retornarID = new DataTable();

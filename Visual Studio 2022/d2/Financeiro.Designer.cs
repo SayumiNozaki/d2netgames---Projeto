@@ -56,7 +56,7 @@
             this.txtPesquisar = new System.Windows.Forms.TextBox();
             this.pnID = new System.Windows.Forms.Panel();
             this.lbID = new System.Windows.Forms.Label();
-            this.txtID = new System.Windows.Forms.TextBox();
+            this.txtId = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
             this.tb_FinanceiroTableAdapter = new d2.d2FinanceiroTableAdapters.tb_FinanceiroTableAdapter();
             this.gpboxFinanceiro.SuspendLayout();
@@ -112,33 +112,37 @@
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
             this.idDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.idDataGridViewTextBoxColumn.MaxInputLength = 10;
             this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Width = 70;
+            this.idDataGridViewTextBoxColumn.Width = 50;
             // 
             // diainicioDataGridViewTextBoxColumn
             // 
             this.diainicioDataGridViewTextBoxColumn.DataPropertyName = "diainicio";
             this.diainicioDataGridViewTextBoxColumn.HeaderText = "De";
+            this.diainicioDataGridViewTextBoxColumn.MaxInputLength = 30;
             this.diainicioDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.diainicioDataGridViewTextBoxColumn.Name = "diainicioDataGridViewTextBoxColumn";
             this.diainicioDataGridViewTextBoxColumn.ReadOnly = true;
-            this.diainicioDataGridViewTextBoxColumn.Width = 125;
+            this.diainicioDataGridViewTextBoxColumn.Width = 150;
             // 
             // diafimDataGridViewTextBoxColumn
             // 
             this.diafimDataGridViewTextBoxColumn.DataPropertyName = "diafim";
             this.diafimDataGridViewTextBoxColumn.HeaderText = "Até";
+            this.diafimDataGridViewTextBoxColumn.MaxInputLength = 30;
             this.diafimDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.diafimDataGridViewTextBoxColumn.Name = "diafimDataGridViewTextBoxColumn";
             this.diafimDataGridViewTextBoxColumn.ReadOnly = true;
-            this.diafimDataGridViewTextBoxColumn.Width = 125;
+            this.diafimDataGridViewTextBoxColumn.Width = 150;
             // 
             // lucroDataGridViewTextBoxColumn
             // 
             this.lucroDataGridViewTextBoxColumn.DataPropertyName = "lucro";
             this.lucroDataGridViewTextBoxColumn.HeaderText = "Lucro";
+            this.lucroDataGridViewTextBoxColumn.MaxInputLength = 10;
             this.lucroDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.lucroDataGridViewTextBoxColumn.Name = "lucroDataGridViewTextBoxColumn";
             this.lucroDataGridViewTextBoxColumn.ReadOnly = true;
@@ -174,6 +178,7 @@
             this.btnLimpar.TabIndex = 27;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // btnDel
             // 
@@ -184,6 +189,7 @@
             this.btnDel.TabIndex = 10;
             this.btnDel.Text = "Deletar";
             this.btnDel.UseVisualStyleBackColor = false;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // btnAdd
             // 
@@ -194,6 +200,7 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Adicionar";
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // groupBox1
             // 
@@ -259,18 +266,18 @@
             // txtAte
             // 
             this.txtAte.Location = new System.Drawing.Point(51, 137);
-            this.txtAte.Mask = "00/00/0000 90:00";
+            this.txtAte.Mask = "00/00/0000 90:00:00";
             this.txtAte.Name = "txtAte";
-            this.txtAte.Size = new System.Drawing.Size(193, 30);
+            this.txtAte.Size = new System.Drawing.Size(208, 30);
             this.txtAte.TabIndex = 11;
             this.txtAte.ValidatingType = typeof(System.DateTime);
             // 
             // txtDe
             // 
             this.txtDe.Location = new System.Drawing.Point(51, 59);
-            this.txtDe.Mask = "00/00/0000 90:00";
+            this.txtDe.Mask = "00/00/0000 90:00:00";
             this.txtDe.Name = "txtDe";
-            this.txtDe.Size = new System.Drawing.Size(193, 30);
+            this.txtDe.Size = new System.Drawing.Size(208, 30);
             this.txtDe.TabIndex = 10;
             this.txtDe.ValidatingType = typeof(System.DateTime);
             // 
@@ -305,6 +312,7 @@
             this.btnBuscar.TabIndex = 4;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // lbPesquisar
             // 
@@ -326,7 +334,7 @@
             // 
             this.pnID.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pnID.Controls.Add(this.lbID);
-            this.pnID.Controls.Add(this.txtID);
+            this.pnID.Controls.Add(this.txtId);
             this.pnID.Controls.Add(this.btnSelect);
             this.pnID.Location = new System.Drawing.Point(760, 85);
             this.pnID.Name = "pnID";
@@ -342,12 +350,13 @@
             this.lbID.TabIndex = 12;
             this.lbID.Text = "ID";
             // 
-            // txtID
+            // txtId
             // 
-            this.txtID.Location = new System.Drawing.Point(21, 36);
-            this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(54, 30);
-            this.txtID.TabIndex = 12;
+            this.txtId.Location = new System.Drawing.Point(21, 36);
+            this.txtId.MaxLength = 10;
+            this.txtId.Name = "txtId";
+            this.txtId.Size = new System.Drawing.Size(54, 30);
+            this.txtId.TabIndex = 12;
             // 
             // btnSelect
             // 
@@ -358,6 +367,7 @@
             this.btnSelect.TabIndex = 12;
             this.btnSelect.Text = "Selecionar";
             this.btnSelect.UseVisualStyleBackColor = false;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // tb_FinanceiroTableAdapter
             // 
@@ -399,7 +409,7 @@
         private System.Windows.Forms.TextBox txtPesquisar;
         private System.Windows.Forms.Panel pnID;
         private System.Windows.Forms.Label lbID;
-        private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.TextBox txtId;
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnVoltar;
@@ -417,10 +427,10 @@
         private d2Financeiro d2Financeiro;
         private System.Windows.Forms.BindingSource tbFinanceiroBindingSource;
         private d2FinanceiroTableAdapters.tb_FinanceiroTableAdapter tb_FinanceiroTableAdapter;
+        private System.Windows.Forms.Button btnLimpar;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn diainicioDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn diafimDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lucroDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button btnLimpar;
     }
 }

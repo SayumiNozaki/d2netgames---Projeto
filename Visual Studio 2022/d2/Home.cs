@@ -40,9 +40,14 @@ namespace d2
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            var login = new Form1();
-            login.Show(this);
-            this.Visible = false;
+            var resultado = MessageBox.Show("Você deseja se desconectar?", "Aviso", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (resultado == DialogResult.OK)
+            {
+                var login = new Form1();
+                login.Show(this);
+                this.Visible = false;
+            }
         }
     }
 }

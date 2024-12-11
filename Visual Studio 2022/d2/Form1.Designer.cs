@@ -31,7 +31,7 @@
             this.gpboxLogin = new System.Windows.Forms.GroupBox();
             this.lbSenha = new System.Windows.Forms.Label();
             this.lbLogin = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAjuda = new System.Windows.Forms.Button();
             this.btnEntrar = new System.Windows.Forms.Button();
             this.txtSenha = new System.Windows.Forms.TextBox();
             this.txtLogin = new System.Windows.Forms.TextBox();
@@ -42,7 +42,7 @@
             // 
             this.gpboxLogin.Controls.Add(this.lbSenha);
             this.gpboxLogin.Controls.Add(this.lbLogin);
-            this.gpboxLogin.Controls.Add(this.button2);
+            this.gpboxLogin.Controls.Add(this.btnAjuda);
             this.gpboxLogin.Controls.Add(this.btnEntrar);
             this.gpboxLogin.Controls.Add(this.txtSenha);
             this.gpboxLogin.Controls.Add(this.txtLogin);
@@ -72,15 +72,16 @@
             this.lbLogin.TabIndex = 4;
             this.lbLogin.Text = "Login";
             // 
-            // button2
+            // btnAjuda
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.button2.Location = new System.Drawing.Point(145, 295);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(147, 52);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Ajuda";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnAjuda.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnAjuda.Location = new System.Drawing.Point(145, 295);
+            this.btnAjuda.Name = "btnAjuda";
+            this.btnAjuda.Size = new System.Drawing.Size(147, 52);
+            this.btnAjuda.TabIndex = 3;
+            this.btnAjuda.Text = "Ajuda";
+            this.btnAjuda.UseVisualStyleBackColor = false;
+            this.btnAjuda.Click += new System.EventHandler(this.btnAjuda_Click);
             // 
             // btnEntrar
             // 
@@ -134,7 +135,7 @@
         private System.Windows.Forms.TextBox txtLogin;
         private System.Windows.Forms.Label lbSenha;
         private System.Windows.Forms.Label lbLogin;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAjuda;
         private System.Windows.Forms.Button btnEntrar;
     }
 }

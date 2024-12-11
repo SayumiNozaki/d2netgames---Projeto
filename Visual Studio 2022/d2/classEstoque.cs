@@ -20,7 +20,7 @@ namespace d2
         public DateTime dretirada { get; set; }
 
 
-        public static void addestoque(classEstoque e)
+        public static void addestoque(classEstoque p)
         {
             try
             {
@@ -29,19 +29,31 @@ namespace d2
                 {
                     conectar.Open();
 
-                    // Comando SQL corrigido para adicionar valores ao estoque
+                    // Comando SQL ajustado para incluir `dretirada`
                     var add = new SqlCommand(
-                        "INSERT INTO tb_Estoque (loja, pk_idCliente, quantidade, situacao, nomecliente, cpf, valor, dregistro) " +
-                        "VALUES (@loja, @pk_idCliente, @quantidade, @situacao, @nomecliente, @cpf, @valor, GETDATE())", conectar);
+                        "INSERT INTO tb_Estoque (loja, pk_idCliente, quantidade, situacao, nomecliente, cpf, valor, dregistro, dretirada, nomeretirada) " +
+                        "VALUES (@loja, @pk_idCliente, @quantidade, @situacao, @nomecliente, @cpf, @valor, GETDATE(), @dretirada, @nomeretirada)", conectar);
 
                     // Adicionando os parâmetros
-                    add.Parameters.AddWithValue("@loja", e.loja);
-                    add.Parameters.AddWithValue("@pk_idCliente", e.pk_idCliente);
-                    add.Parameters.AddWithValue("@quantidade", e.quantidade);
-                    add.Parameters.AddWithValue("@situacao", e.situacao);
-                    add.Parameters.AddWithValue("@nomecliente", e.nomecliente ?? (object)DBNull.Value); // Permite null
-                    add.Parameters.AddWithValue("@cpf", e.cpf ?? (object)DBNull.Value); // Permite null
-                    add.Parameters.AddWithValue("@valor", e.valor == 0 ? (object)DBNull.Value : e.valor); // Permite null ou 0 como vazio
+                    add.Parameters.AddWithValue("@loja", p.loja);
+                    add.Parameters.AddWithValue("@pk_idCliente", p.pk_idCliente);
+                    add.Parameters.AddWithValue("@quantidade", p.quantidade);
+                    add.Parameters.AddWithValue("@situacao", p.situacao);
+                    add.Parameters.AddWithValue("@nomecliente", p.nomecliente ?? (object)DBNull.Value); // Permite null
+                    add.Parameters.AddWithValue("@cpf", p.cpf ?? (object)DBNull.Value);               // Permite null
+                    add.Parameters.AddWithValue("@valor", p.valor > 0 ? p.valor : (object)DBNull.Value); // Permite null para valor
+
+                    // Adiciona `dretirada` e `nomeretirada` apenas se retirado
+                    if (p.situacao == "Retirado")
+                    {
+                        add.Parameters.AddWithValue("@dretirada", DateTime.Now); // Data atual
+                        add.Parameters.AddWithValue("@nomeretirada", p.nomeretirada);
+                    }
+                    else
+                    {
+                        add.Parameters.AddWithValue("@dretirada", DBNull.Value); // Null se não retirado
+                        add.Parameters.AddWithValue("@nomeretirada", DBNull.Value);
+                    }
 
                     add.ExecuteNonQuery();
 
@@ -50,12 +62,12 @@ namespace d2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro: " + ex.Message);
+                MessageBox.Show("Erro ao registrar pacote: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
-        public static void attestoque(classEstoque e)
+        public static void attestoque(classEstoque p)
         {
             try
             {
@@ -64,16 +76,22 @@ namespace d2
                 {
                     conectar.Open();
 
-                    // Verifica se a situação é "retirado"
-                    if (e.situacao.ToLower() == "retirado")
+                    if (p.situacao.ToLower() == "retirado")
                     {
-                        if (string.IsNullOrWhiteSpace(e.nomeretirada))
+                        // Validação obrigatória
+                        if (string.IsNullOrWhiteSpace(p.nomeretirada))
                         {
-                            MessageBox.Show("O nome de quem retirou é obrigatório ao marcar o pacote como 'retirado'.");
+                            MessageBox.Show("O nome de quem retirou é obrigatório ao marcar o pacote como 'retirado'.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
-                        // Atualiza com data e nome de retirada
+                        if (p.valor <= 0)
+                        {
+                            MessageBox.Show("O valor é obrigatório ao marcar o pacote como 'retirado'.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Atualização para situação "Retirado"
                         var att = new SqlCommand(
                             "UPDATE tb_Estoque SET " +
                             "loja = @loja, " +
@@ -87,37 +105,43 @@ namespace d2
                             "dretirada = GETDATE() " +
                             "WHERE id = @id", conectar);
 
-                        // Adiciona parâmetros
-                        att.Parameters.AddWithValue("@loja", e.loja);
-                        att.Parameters.AddWithValue("@pk_idCliente", e.pk_idCliente);
-                        att.Parameters.AddWithValue("@quantidade", e.quantidade);
-                        att.Parameters.AddWithValue("@situacao", e.situacao);
-                        att.Parameters.AddWithValue("@nomecliente", e.nomecliente);
-                        att.Parameters.AddWithValue("@nomeretirada", e.nomeretirada);
-                        att.Parameters.AddWithValue("@cpf", e.cpf);
-                        att.Parameters.AddWithValue("@valor", e.valor);
-                        att.Parameters.AddWithValue("@id", e.id);
+                        // Parâmetros
+                        att.Parameters.AddWithValue("@loja", p.loja);
+                        att.Parameters.AddWithValue("@pk_idCliente", p.pk_idCliente);
+                        att.Parameters.AddWithValue("@quantidade", p.quantidade);
+                        att.Parameters.AddWithValue("@situacao", p.situacao);
+                        att.Parameters.AddWithValue("@nomecliente", p.nomecliente ?? (object)DBNull.Value);
+                        att.Parameters.AddWithValue("@nomeretirada", p.nomeretirada);
+                        att.Parameters.AddWithValue("@cpf", p.cpf ?? (object)DBNull.Value);
+                        att.Parameters.AddWithValue("@valor", p.valor);
+                        att.Parameters.AddWithValue("@id", p.id);
 
                         att.ExecuteNonQuery();
                         MessageBox.Show("Pacote atualizado como 'retirado' com sucesso.");
                     }
                     else
                     {
-                        // Atualiza sem mexer nos dados de retirada
+                        // Atualização para situação "Em Estoque"
                         var att = new SqlCommand(
                             "UPDATE tb_Estoque SET " +
                             "loja = @loja, " +
                             "pk_idCliente = @pk_idCliente, " +
                             "quantidade = @quantidade, " +
+                            "situacao = @situacao, " +
                             "nomecliente = @nomecliente, " +
+                            "cpf = @cpf, " +
+                            "valor = @valor " +
                             "WHERE id = @id", conectar);
 
-                        // Adiciona parâmetros
-                        att.Parameters.AddWithValue("@loja", e.loja);
-                        att.Parameters.AddWithValue("@pk_idCliente", e.pk_idCliente);
-                        att.Parameters.AddWithValue("@quantidade", e.quantidade);
-                        att.Parameters.AddWithValue("@nomecliente", e.nomecliente);
-                        att.Parameters.AddWithValue("@id", e.id);
+                        // Parâmetros
+                        att.Parameters.AddWithValue("@loja", p.loja);
+                        att.Parameters.AddWithValue("@pk_idCliente", p.pk_idCliente);
+                        att.Parameters.AddWithValue("@quantidade", p.quantidade);
+                        att.Parameters.AddWithValue("@situacao", p.situacao);
+                        att.Parameters.AddWithValue("@nomecliente", p.nomecliente ?? (object)DBNull.Value);
+                        att.Parameters.AddWithValue("@cpf", p.cpf ?? (object)DBNull.Value);
+                        att.Parameters.AddWithValue("@valor", p.valor > 0 ? p.valor : (object)DBNull.Value);
+                        att.Parameters.AddWithValue("@id", p.id);
 
                         att.ExecuteNonQuery();
                         MessageBox.Show("Pacote atualizado como 'em estoque' com sucesso.");
@@ -126,9 +150,10 @@ namespace d2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro: " + ex.Message);
+                MessageBox.Show("Erro ao atualizar pacote: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         public static void deleteestoque(int id)
         {
@@ -153,7 +178,7 @@ namespace d2
             }
         }
 
-        public static DataTable selectestoque(int ID)
+        public static DataTable selectestoque(int id)
         {
             DataTable retornarID = new DataTable();
 
@@ -164,7 +189,7 @@ namespace d2
                 conectar.Open();
                 using (var procurar = new SqlCommand("SELECT * FROM tb_Estoque WHERE id = @id", conectar))
                 {
-                    procurar.Parameters.AddWithValue("@id", ID);
+                    procurar.Parameters.AddWithValue("@id", id);
 
                     using (var resp = new SqlDataAdapter(procurar))
                     {

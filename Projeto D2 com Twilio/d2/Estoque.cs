@@ -573,9 +573,9 @@ namespace d2
                 // Formata o número antes de enviar
                 telefone1 = FormatarNumero(telefone1);
 
-                // Configure o Twilio
-                string accountSid = "AC7d93a6231a115bb3765e4b3fac3c764e";
-                string authToken = "ec83171d0936b5d208f7a1cb2ee9c038";
+
+                string accountSid = "x"; //Coloque aqui a sua acoountSid buscando no seu perfil Twilio
+                string authToken = "X"; //Coloque aqui o seu authToken buscando no seu perfil Twilio
                 TwilioClient.Init(accountSid, authToken);
 
                 // Enviar a mensagem
@@ -625,10 +625,10 @@ namespace d2
                 // Formata o número antes de enviar
                 telefone2 = FormatarNumero(telefone2);
 
-                // Configure o Twilio
-                string accountSid = "AC7d93a6231a115bb3765e4b3fac3c764e";
-                string authToken = "ec83171d0936b5d208f7a1cb2ee9c038";
-                TwilioClient.Init(accountSid, authToken);
+
+                 string accountSid = "x"; //Coloque aqui a sua acoountSid buscando no seu perfil Twilio
+                 string authToken = "X"; //Coloque aqui o seu authToken buscando no seu perfil Twilio
+                 TwilioClient.Init(accountSid, authToken);
 
                 // Enviar a mensagem
                 EnviarMensagemWhatsApp(telefone2, txtNomeCliente.Text);

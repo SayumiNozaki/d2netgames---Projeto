@@ -1,0 +1,41 @@
+USE D2
+
+CREATE TABLE tb_Usuario(
+id INT NOT NULL IDENTITY,
+usuario VARCHAR(10) NOT NULL,
+senha VARCHAR(60) NOT NULL,
+dregistro DATE NOT NULL
+);
+
+CREATE TABLE tb_Cliente(
+id INT NOT NULL IDENTITY,
+nome VARCHAR(80) NOT NULL,
+cpf VARCHAR(14),
+telefone VARCHAR(15) NOT NULL,
+telefone2 VARCHAR (15)
+
+CONSTRAINT pk_idCliente PRIMARY KEY (id)
+);
+
+CREATE TABLE tb_Estoque(
+id INT NOT NULL IDENTITY,
+loja VARCHAR(50) NOT NULL,
+pk_idCliente INT NOT NULL,
+quantidade INT NOT NULL,
+situacao VARCHAR(10) NOT NULL,
+nomecliente VARCHAR(80),
+nomeretirada VARCHAR(80),
+cpf VARCHAR(14),
+valor MONEY,
+dregistro DATETIME NOT NULL,
+dretirada DATETIME
+
+FOREIGN KEY (pk_idCliente) REFERENCES tb_Cliente(id)
+);
+
+CREATE TABLE tb_Financeiro(
+id INT NOT NULL IDENTITY,
+diainicio DATETIME NOT NULL,
+diafim DATETIME NOT NULL,
+lucro MONEY
+);

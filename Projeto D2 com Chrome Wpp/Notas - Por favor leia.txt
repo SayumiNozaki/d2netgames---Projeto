@@ -1,0 +1,7 @@
+Na classe whatsapp é necessário que você altere o nome de usuário no diretório da pasta para que o botão Wpp1 e Wpp2 funcionem corretamente.
+
+ StartBrowser(TypeDriver.GoogleChorme, 
+"C:\\Users\\sayum\\AppData\\Local\\Google\\Chrome\\User Data");
+	    -----
+
+Uma observação importante é que só funcionará se o web what's app estiver fechado, caso esteja aberto o botão só abrirá o Chrome e reportar mensagem de erro.

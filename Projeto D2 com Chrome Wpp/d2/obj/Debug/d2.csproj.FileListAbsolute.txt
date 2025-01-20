@@ -26,7 +26,6 @@ C:\dev\extensão universitária\d2\d2\bin\Debug\System.Text.Encodings.Web.dll
 C:\dev\extensão universitária\d2\d2\bin\Debug\System.Text.Json.dll
 C:\dev\extensão universitária\d2\d2\bin\Debug\System.Threading.Tasks.Extensions.dll
 C:\dev\extensão universitária\d2\d2\bin\Debug\System.ValueTuple.dll
-C:\dev\extensão universitária\d2\d2\bin\Debug\Twilio.dll
 C:\dev\extensão universitária\d2\d2\bin\Debug\ZstdSharp.dll
 C:\dev\extensão universitária\d2\d2\bin\Debug\BCrypt.Net-Next.xml
 C:\dev\extensão universitária\d2\d2\bin\Debug\BouncyCastle.Cryptography.xml
@@ -54,7 +53,6 @@ C:\dev\extensão universitária\d2\d2\bin\Debug\System.Text.Encodings.Web.xml
 C:\dev\extensão universitária\d2\d2\bin\Debug\System.Text.Json.xml
 C:\dev\extensão universitária\d2\d2\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\dev\extensão universitária\d2\d2\bin\Debug\System.ValueTuple.xml
-C:\dev\extensão universitária\d2\d2\bin\Debug\Twilio.xml
 C:\dev\extensão universitária\d2\d2\obj\Debug\d2.csproj.AssemblyReference.cache
 C:\dev\extensão universitária\d2\d2\obj\Debug\d2.Estoque.resources
 C:\dev\extensão universitária\d2\d2\obj\Debug\d2.Financeiro.resources

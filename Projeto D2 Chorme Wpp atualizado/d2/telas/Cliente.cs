@@ -1,0 +1,374 @@
+﻿using Google.Protobuf.WellKnownTypes;
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace d2
+{
+    public partial class Cliente : Form
+    {
+        public Cliente()
+        {
+            InitializeComponent();
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("Você deseja voltar para a tela principal?", "Aviso", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (resultado == DialogResult.OK)
+            {
+                var home = new Home();
+                home.Show(this);
+                this.Visible = false;
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPesquisar.Text))
+            {
+                MessageBox.Show("Por favor, insira um termo de pesquisa.");
+                txtPesquisar.Focus();
+                return;
+            }
+
+            string pesquisar = txtPesquisar.Text;
+
+            using (SqlConnection conectar = new SqlConnection(classBd.d2))
+            {
+                conectar.Open();
+
+                SqlCommand buscar;
+
+                if (pesquisar.ToLower() == "todos") // Verifica se a pesquisa é 'todos'
+                {
+                    // Se for 'todos', busca todos os dados sem filtro
+                    buscar = new SqlCommand("SELECT * FROM tb_Cliente", conectar);
+                }
+                else
+                {
+                    // Se não for 'todos', realiza a busca normal
+                    buscar = new SqlCommand("SELECT * FROM tb_Cliente WHERE nome LIKE @pesquisar OR " +
+                                            "cpf LIKE @pesquisar OR " +
+                                            "id LIKE @pesquisar", conectar);
+                    buscar.Parameters.AddWithValue("@pesquisar", "%" + pesquisar + "%");
+                }
+
+                DataTable vpesquisa = new DataTable();
+
+                using (SqlDataAdapter wpesquisa = new SqlDataAdapter(buscar))
+                {
+                    wpesquisa.Fill(vpesquisa);
+                    tbCliente.DataSource = vpesquisa;
+                }
+            }
+        }
+
+
+        private void Cliente_Load(object sender, EventArgs e)
+        {
+            // TODO: esta linha de código carrega dados na tabela 'd2Cliente.tb_Cliente'. Você pode movê-la ou removê-la conforme necessário.
+            this.tb_ClienteTableAdapter1.Fill(this.d2Cliente.tb_Cliente);
+
+
+
+        }
+
+        private bool ValidarCampo()
+        {
+            if (string.IsNullOrWhiteSpace(txtNome.Text))
+            {
+                MessageBox.Show("Por favor, preencha o nome do cliente.");
+                txtNome.Focus();
+                return true;
+            }
+
+            if (!txtTel1.MaskFull)
+            {
+                MessageBox.Show("Por favor, preencha o telefone do cliente.");
+                txtTel1.Focus();
+                return true;
+            }
+
+            return false;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (!ValidarCampo())
+            {
+                var resultado = MessageBox.Show("Você tem certeza que deseja adicionar esse cliente?", "Aviso", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                if (resultado == DialogResult.OK)
+                {
+                    classCliente c = new classCliente();
+
+                    c.nome = txtNome.Text;
+
+                    // Verifica CPF - Salva apenas se estiver completamente preenchido
+                    c.cpf = txtCPF.MaskFull ? txtCPF.Text : null;
+
+                    // Verifica Telefone 1 - Salva apenas se estiver completamente preenchido
+                    c.telefone = txtTel1.MaskFull ? txtTel1.Text : null;
+
+                    // Verifica Telefone 2 - Salva apenas se estiver completamente preenchido
+                    c.telefone2 = txtTel2.MaskFull ? txtTel2.Text : null;
+
+                    classCliente.addcliente(c);
+
+                    var cliente = new Cliente();
+                    cliente.Show(this);
+                    this.Visible = false;
+                }
+            }
+        }
+
+        private void btnAtt_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("Por favor, selecione um ID de cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtId.Focus();
+            }
+            else
+            {
+                if (!ValidarCampo())
+                {
+                    var resultado = MessageBox.Show("Você tem certeza que deseja alterar esse cliente?", "Aviso", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                    if (resultado == DialogResult.OK)
+                    {
+                        classCliente c = new classCliente();
+
+                        c.id = Convert.ToInt32(txtId.Text);
+                        c.nome = txtNome.Text;
+
+                        if (!string.IsNullOrWhiteSpace(txtCPF.Text))
+                        {
+                            c.cpf = txtCPF.Text;
+                        }
+                        else
+                        {
+                            c.cpf = null;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(txtTel1.Text))
+                        {
+                            c.telefone = txtTel1.Text;
+                        }
+                        else
+                        {
+                            c.telefone = null;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(txtTel2.Text))
+                        {
+                            c.telefone2 = txtTel2.Text;
+                        }
+                        else
+                        {
+                            c.telefone2 = null;
+                        }
+
+                        classCliente.attcliente(c);
+
+                        var cliente = new Cliente();
+                        cliente.Show(this);
+                        this.Visible = false;
+                    }
+                }
+            }
+        }
+
+        private void COUNTCliente()
+        {
+            bool idExists = false;
+
+            using (var conectar = new SqlConnection(classBd.d2))
+            {
+                conectar.Open();
+                using (var procurarID = new SqlCommand("SELECT COUNT(*) FROM tb_Cliente WHERE id = @id", conectar))
+                {
+                    procurarID.Parameters.AddWithValue("@id", Convert.ToInt32(txtId.Text));
+                    idExists = (int)procurarID.ExecuteScalar() > 0;
+                }
+            } 
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("Por favor, insira um ID válido para selecionar.");
+                txtId.Focus();
+                return;
+            }
+
+            COUNTCliente();
+
+            DataTable cliente = classCliente.selectcliente(Convert.ToInt32(txtId.Text));
+
+
+            if (cliente.Rows.Count > 0)
+            {
+                txtNome.Text = cliente.Rows[0].Field<string>("nome");
+                txtCPF.Text = cliente.Rows[0].Field<string>("cpf");
+                txtTel1.Text = cliente.Rows[0].Field<string>("telefone").ToString();
+                txtTel2.Text = cliente.Rows[0].Field<string>("telefone2").ToString();
+            }
+
+        }
+
+        private void Limpar()
+        {
+            txtId.Clear();
+            txtNome.Clear();
+            txtCPF.Clear();
+            txtTel1.Clear();
+            txtTel2.Clear();
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show("Você deseja limpar todos os campos do cliente?", "Aviso", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (resultado == DialogResult.OK)
+            {
+                Limpar();
+            }
+        }
+
+        private void txtPesquisar_Enter(object sender, EventArgs e)
+        {
+            txtPesquisar.BackColor = Color.LightBlue;
+        }
+
+        private void txtPesquisar_Leave(object sender, EventArgs e)
+        {
+            txtPesquisar.BackColor = Color.White;
+        }
+
+        private void btnBuscar_Enter(object sender, EventArgs e)
+        {
+            btnBuscar.BackColor = Color.LightGreen;
+        }
+
+        private void btnBuscar_Leave(object sender, EventArgs e)
+        {
+            btnBuscar.BackColor = Color.Silver;
+        }
+
+        private void txtId_Enter(object sender, EventArgs e)
+        {
+            txtId.BackColor = Color.LightBlue;
+        }
+
+        private void txtId_Leave(object sender, EventArgs e)
+        {
+            txtId.BackColor = Color.White;
+        }
+
+        private void btnSelect_Enter(object sender, EventArgs e)
+        {
+            btnSelect.BackColor = Color.LightGreen;
+        }
+
+        private void btnSelect_Leave(object sender, EventArgs e)
+        {
+            btnSelect.BackColor = Color.Silver;
+        }
+
+        private void txtNome_Enter(object sender, EventArgs e)
+        {
+            txtNome.BackColor = Color.LightBlue;
+        }
+
+        private void txtNome_Leave(object sender, EventArgs e)
+        {
+            txtNome.BackColor = Color.White;
+        }
+
+        private void txtCPF_Enter(object sender, EventArgs e)
+        {
+            txtCPF.BackColor = Color.LightBlue;
+        }
+
+        private void txtCPF_Leave(object sender, EventArgs e)
+        {
+            txtCPF.BackColor = Color.White;
+        }
+
+        private void txtTel1_Enter(object sender, EventArgs e)
+        {
+            txtTel1.BackColor = Color.LightBlue;
+        }
+
+        private void txtTel1_Leave(object sender, EventArgs e)
+        {
+            txtTel1.BackColor = Color.White;
+        }
+
+        private void txtTel2_Enter(object sender, EventArgs e)
+        {
+            txtTel2.BackColor = Color.LightBlue;  
+        }
+
+        private void txtTel2_Leave(object sender, EventArgs e)
+        {
+            txtTel2.BackColor = Color.White;
+        }
+
+        private void btnAdd_Enter(object sender, EventArgs e)
+        {
+            btnAdd.BackColor = Color.Green;
+        }
+
+        private void btnAdd_Leave(object sender, EventArgs e)
+        {
+            btnAdd.BackColor = Color.Silver;
+        }
+
+        private void btnAtt_Enter(object sender, EventArgs e)
+        {
+            btnAtt.BackColor = Color.Yellow;
+        }
+
+        private void btnAtt_Leave(object sender, EventArgs e)
+        {
+            btnAtt.BackColor = Color.Silver;
+        }
+
+        private void btnLimpar_Enter(object sender, EventArgs e)
+        {
+            btnLimpar.BackColor = Color.Orange;
+        }
+
+        private void btnLimpar_Leave(object sender, EventArgs e)
+        {
+            btnLimpar.BackColor = Color.Silver;
+        }
+
+        private void btnVoltar_Enter(object sender, EventArgs e)
+        {
+            btnVoltar.BackColor = Color.Red;
+        }
+
+        private void btnVoltar_Leave(object sender, EventArgs e)
+        {
+            btnVoltar.BackColor = Color.Silver;
+        }
+
+        private void txtPesquisar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnBuscar.PerformClick(); // Simula o clique no botão de busca
+            }
+
+        }
+    }
+}
+
